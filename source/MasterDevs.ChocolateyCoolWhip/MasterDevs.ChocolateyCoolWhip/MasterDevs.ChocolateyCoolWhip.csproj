@@ -49,8 +49,18 @@
     <None Include="ChocolateyPackage\tools\templates\chocolateyInstall.ps1" />
     <None Include="ChocolateyPackage\tools\templates\chocolateyUninstall.ps1" />
     <None Include="ChocolateyPackage\tools\templates\nuspecTemplate.nuspec" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>SET NUGETEXE="$(SolutionDir).nuget\NuGet.exe" 
+SET NUSPEC="$(ProjectDir)ChocolateyPackage\ChocolateyCoolWhipDev.nuspec"
+SET VERSION=$([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`))
+IF NOT "%25BuildVersion%25" == "" (set VERSION=%25BuildVersion%25) 
+
+%25NUGETEXE%25 pack %25NUSPEC%25 -version %25VERSION%25 -OutputDirectory $(TargetDir)
+</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
