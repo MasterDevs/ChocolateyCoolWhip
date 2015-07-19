@@ -2,6 +2,9 @@
 The coolest way to whip out Chocolatey releases from GitHub and AppVeyor
 
 
+This is a work-in-progress.
+
+
 #Useful commands
 
 **Pack**
