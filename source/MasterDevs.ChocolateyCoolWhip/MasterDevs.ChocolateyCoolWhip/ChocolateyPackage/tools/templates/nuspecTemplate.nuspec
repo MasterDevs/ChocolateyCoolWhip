@@ -1,17 +1,27 @@
 ﻿<?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <licenseUrl></licenseUrl>
-    <projectUrl></projectUrl>
-    <iconUrl></iconUrl>
+    <id>{{GitHubProject}}.portable</id>
+    <title>{{GitHubProject}}</title>
+    <!-- Version is overwritten when the package is created -->
+    <version>0.0.1</version>
+    <authors>{{GitHubUsername}}</authors>
+    <owners>{{GitHubUsername}}</owners>
+    <summary>Enter Summary Here</summary>
+    <description>Enter Description Here</description>
+    <tags>Enter A List Of Tags Here</tags>
+    <copyright>Copyright 2016</copyright>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes></releaseNotes>
-    <copyright>Copyright 2015</copyright>
+    <projectUrl>       https://github.com/{{GitHubUsername}}/{{GitHubProject}}                     </projectUrl>
+    <packageSourceUrl> https://github.com/{{GitHubUsername}}/{{GitHubProject}}                     </packageSourceUrl>
+    <docsUrl>          https://github.com/{{GitHubUsername}}/{{GitHubProject}}                     </docsUrl>
+    <projectSourceUrl> https://github.com/{{GitHubUsername}}/{{GitHubProject}}                     </projectSourceUrl>
+    <iconUrl>          https://github.com/{{GitHubUsername}}/{{GitHubProject}}/icon.jpg            </iconUrl>
+    <bugTrackerUrl>    https://github.com/{{GitHubUsername}}/{{GitHubProject}}/issues              </bugTrackerUrl>
+    <releaseNotes>     https://github.com/{{GitHubUsername}}/{{GitHubProject}}/releases            </releaseNotes>
+    <licenseUrl>       https://github.com/{{GitHubUsername}}/{{GitHubProject}}/blob/master/LICENSE </licenseUrl>
   </metadata>
+  <files>
+    <file src="tools\**" target="tools" />
+  </files>
 </package>

@@ -30,14 +30,23 @@ nuget:
   project_feed: true
 before_build:
 - nuget restore {{solutionFile}}
+
 build:
   project: {{solutionFile}}
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
+
+after_build:
+- ps: Invoke-Expression TidyJson\TidyJson\Chocolatey\PrePackage.ps1
+- cpack TidyJson\TidyJson\Chocolatey\package.nuspec --version %BuildVersion%
+
 artifacts:
-- path: {{artifactPath}}
-  name: {{artifactName}}
+- path: {{zipArtifactPath}}
+  name: {{zipArtifactName}}
+- path: {{chocolateyPackagePath}}
+  name: ChocolateyPackage
+
 deploy:
 - provider: GitHub
   auth_token:
@@ -48,9 +57,10 @@ deploy:
     branch: master
     IsGithubRelease: true
 - provider: NuGet
+  server: https://chocolatey.org/
   api_key:
     secure: <Replace with your encrypted Nuget.org API token>
-  artifact: 
+  artifact: ChocolateyPackage
   on:
     branch: master
     IsGithubRelease: true

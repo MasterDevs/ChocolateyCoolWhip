@@ -2,13 +2,16 @@
 #https://robdmoore.id.au/blog/2013/08/07/test-harness-for-nuget-install-powershell-scripts-init-ps1-install-ps1-uninstall-ps1/
 # AKA https://github.com/robdmoore/NuGetCommandTestHarness
 
-
 param($installPath, $toolsPath, $package, $project)
+Write-Host "Install Path:  $installPath"
+Write-Host "Tools Path:    $installPath"
+Write-Host "Package:       $installPath"
+Write-Host "Project:       $installPath"
 
-#-- Bring in some helpers
+#-- Import tools for dealing with git
 . "$($toolsPath)\FindGitRoot.ps1"
 
-
+#-- Analyze the environment
 $packagePath = Join-Path $toolsPath ".."
 $projectPath = Split-Path -Parent $project.FullName
 $nuspecTemplatePath = Join-Path $toolsPath "templates\nuspecTemplate.txt"
@@ -31,19 +34,10 @@ $relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1
 #if([string]::IsNullOrEmpty($gitRoot)) {
 #	throw "This project is not using git and therefore this project can not be whipped"
 #}
-#
-#if(Test-Path $appVeyorOutputPath) {
-#	throw "appveyor.yml exists. To install cool-whip delete appveyor.yml from your repos root directory"
-#}
-#
-#if(Test-Path $nuspectOutputPath){
-#	throw "$($project.Name).nuspec file already exists. To install cool-whip please delete $($project.Name).nuspec from your project files directory."
-#}
 
-#-- Replace Templated items in AppVeyor.yml template
+#-- Replace templated items in AppVeyor.yml template
 $appVeyorContent = $appVeyorContent.Replace("{{artifactPath}}", $artifactPath)
 $appVeyorContent = $appVeyorContent.Replace("{{artifactName}}", $project.Name)
-$appVeyorContent = $appVeyorContent.Replace("{{assemblyInfoRelativePath}}", $projectPath.Replace($solutionFolder, ""))
 $appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutionPath)
 
 

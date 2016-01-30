@@ -49,6 +49,7 @@
     <None Include="ChocolateyPackage\tools\templates\chocolateyInstall.ps1" />
     <None Include="ChocolateyPackage\tools\templates\chocolateyUninstall.ps1" />
     <None Include="ChocolateyPackage\tools\templates\nuspecTemplate.nuspec" />
+    <None Include="ChocolateyPackage\tools\templates\Tokens.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
