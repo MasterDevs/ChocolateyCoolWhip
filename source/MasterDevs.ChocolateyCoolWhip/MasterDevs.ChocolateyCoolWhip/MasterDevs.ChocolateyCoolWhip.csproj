@@ -33,6 +33,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
@@ -53,12 +56,17 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET NUGETEXE="$(SolutionDir).nuget\NuGet.exe" 
+    <PostBuildEvent>SET packageFolder="c:\code\nugetpackages"
+if not exist %25packageFolder%25 mkdir %25packageFolder%25
+
+SET NUGETEXE="$(SolutionDir).nuget\NuGet.exe" 
 SET NUSPEC="$(ProjectDir)ChocolateyPackage\ChocolateyCoolWhipDev.nuspec"
-SET VERSION=$([System.DateTime]::Now.ToString(`yyMM`)).$([System.DateTime]::Now.ToString(`ddHH`)).$([System.DateTime]::Now.ToString(`mmss`))
+SET DATE=$([System.DateTime]::Now.ToString(`yyMM`))$([System.DateTime]::Now.ToString(`ddHH`))
+SET TIME=$([System.DateTime]::Now.ToString(`mmss`))
+SET VERSION=0.%25DATE%25.%25TIME%25
 IF NOT "%25BuildVersion%25" == "" (set VERSION=%25BuildVersion%25) 
 
-%25NUGETEXE%25 pack %25NUSPEC%25 -version %25VERSION%25 -OutputDirectory $(TargetDir)
+%25NUGETEXE%25 pack %25NUSPEC%25 -version %25VERSION%25 -OutputDirectory %25packageFolder%25
 </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
