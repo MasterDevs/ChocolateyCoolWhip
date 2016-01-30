@@ -14,9 +14,9 @@
     <tags>Chocolatey AppVeyor</tags>
     <developmentDependency>true</developmentDependency>
 
-    <dependencies>
+    <!--<dependencies>
       <dependency id="chocolatey" version="0.9.9.8" />
-    </dependencies>
+    </dependencies>-->
 
   </metadata>
 </package>
