@@ -47,14 +47,23 @@ $relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1
 #=======================================
 Write-Host "Replacing tokens"
 Write-Host "    Processing AppVeyor.yml"
+
+$tokens = @{
+    "{{solutionFile}}"             = $relativeSolutionPath;
+    "{{GITHUB_PROJECT_NAME}}"      = "Need to figure this out";
+    "{{GITHUB_USERNAME}}"          = "Need to figure this out";
+    "{{CHOCOLATEY_PACKAGE_PATH}}"  = $artifactPath;
+    "{{SOLUTION_FILE}}"            = $relativeSolutionPath;
+    "{{ZIP_ARTIFACT_NAME}}"        = "bin.zip";
+    "{{ZIP_ARTIFACT_PATH}}"        = "Must Figure this bit out";
+}
+
 $appVeyorContent = Get-Content $templateAppVeyorPath
-$appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}",            $relativeSolutionPath)
-$appVeyorContent = $appVeyorContent.Replace("{{GITHUB_PROJECT_NAME}}",     "Need to figure this out")
-$appVeyorContent = $appVeyorContent.Replace("{{GITHUB_USERNAME}}",         "Need to figure this out")
-$appVeyorContent = $appVeyorContent.Replace("{{CHOCOLATEY_PACKAGE_PATH}}", $artifactPath)
-$appVeyorContent = $appVeyorContent.Replace("{{SOLUTION_FILE}}",           $relativeSolutionPath)
-$appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_NAME}}",       "bin.zip")
-$appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_PATH}}",       "Must Figure this bit out")
+foreach ($name in $tokens.Keys)
+{
+    $value = $tokens.Item($name)
+    $appVeyorContent = $appVeyorContent.Replace($name, $value)
+}
 
 #=======================================
 # 4. Copy over the files
@@ -62,7 +71,7 @@ $appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_PATH}}",       "Must
 Set-Content $outputAppVeyorPath $appVeyorContent
 Write-Host "Installed AppVeyor config file at $outputAppVeyorPath"
 
-Move-Item -Force $inputNusepcPath $outputNuspecPath
+#Move-Item -Force $inputNusepcPath $outputNuspecPath
 
 #=======================================
 # 5. Done
