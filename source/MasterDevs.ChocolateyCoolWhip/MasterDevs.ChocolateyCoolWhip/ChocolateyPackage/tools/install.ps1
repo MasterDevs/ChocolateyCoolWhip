@@ -22,6 +22,9 @@ $projectPath = Split-Path -Parent $project.FullName
 $chocoPath = Join-Path $projectPath "Chocolatey"
 $solutionFolder = Split-Path $dte.Solution.FullName
 $gitRoot = findGitRoot -pathInGit $solutionFolder
+$gitUrl = findRemoteOriginUrl $gitRoot
+$gitUsername = getUsernameFromUrl $gitUrl
+$gitProjectName = getProjectNameFromUrl $gitUrl
 
 $outputAppVeyorPath = Join-Path $gitRoot "appveyor.yml"
 
@@ -50,8 +53,8 @@ Write-Host "    Processing AppVeyor.yml"
 
 $tokens = @{
     "{{solutionFile}}"             = $relativeSolutionPath;
-    "{{GITHUB_PROJECT_NAME}}"      = "Need to figure this out";
-    "{{GITHUB_USERNAME}}"          = "Need to figure this out";
+    "{{GITHUB_PROJECT_NAME}}"      = $gitProjectName;
+    "{{GITHUB_USERNAME}}"          = $gitUsername;
     "{{CHOCOLATEY_PACKAGE_PATH}}"  = $artifactPath;
     "{{SOLUTION_FILE}}"            = $relativeSolutionPath;
     "{{ZIP_ARTIFACT_NAME}}"        = "bin.zip";

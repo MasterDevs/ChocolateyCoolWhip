@@ -16,10 +16,12 @@
     <packageSourceUrl> https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}                     </packageSourceUrl>
     <docsUrl>          https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}                     </docsUrl>
     <projectSourceUrl> https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}                     </projectSourceUrl>
-    <iconUrl>          https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}/icon.jpg            </iconUrl>
     <bugTrackerUrl>    https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}/issues              </bugTrackerUrl>
     <releaseNotes>     https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}/releases            </releaseNotes>
     <licenseUrl>       https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}/blob/master/LICENSE </licenseUrl>
+<!-- Uncomment this line if you have an icon for your project
+    <iconUrl>          https://github.com/{{GITHUB_USERNAME}}/{{GITHUB_PROJECT_NAME}}/icon.jpg            </iconUrl>
+-->
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
