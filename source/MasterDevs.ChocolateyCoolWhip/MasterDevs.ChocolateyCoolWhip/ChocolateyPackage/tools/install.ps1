@@ -12,7 +12,7 @@ Write-Host "Project:       $project"
 # 1. Startup
 #=======================================
 . "$($toolsPath)\FindGitRoot.ps1" # Import git functions
-$ErrorActionPreference = "Stop"   # Stop script execution on first error
+#$ErrorActionPreference = "Stop"   # Stop script execution on first error
 
 #=======================================
 # 2. Analyze the environment
@@ -23,19 +23,15 @@ $outputContentPath = Join-Path $projectPath "Chocolatey"
 $solutionFolder = Split-Path $dte.Solution.FullName
 $gitRoot = findGitRoot -pathInGit $solutionFolder
 
-$outputAppVeyorPath              = Join-Path $gitRoot "appveyor.yml"
-$outputNuspecPath                = Join-Path $projectPath "$($project.Name).nuspec"
-$outputChocolateyInstallPath     = Join-Path $outputContentPath "tools\ChocolateyInstall.ps1"
-$outputChocolateyUninstallPath   = Join-Path $outputContentPath "tools\ChocolateyUninstall.ps1"
-$outputTokensPath                = Join-Path $outputContentPath "tools\Tokens.json"
-$outputPrePackagePath            = Join-Path $outputContentPath "PrePackage.ps1"
+$outputAppVeyorPath = Join-Path $gitRoot "appveyor.yml"
 
-$templateAppVeyorPath            = Join-Path $toolsPath "templates\appveyor.yml"
-$templateNuspecPath              = Join-Path $toolsPath "templates\nuspecTemplate.xml"
-$templateChocolateyInstallPath   = Join-Path $toolsPath "templates\ChocolateyInstall.ps1"
-$templateChocolateyUninstallPath = Join-Path $toolsPath "templates\ChocolateyUninstall.ps1"
-$templateTokensPath              = Join-Path $toolsPath "templates\Tokens.json"
-$templatePrePackagePath          = Join-Path $toolsPath "templates\PrePackage.ps1"
+$inputNusepcPath =  Join-Path $projectPath "Chocolatey\package.xml"
+$outputNuspecPath = Join-Path $projectPath "Chocolatey\package.nuspec"
+
+echo "HEllo world safasfsa fsa;fsaf"
+$templateAppVeyorPath = Join-Path $toolsPath "templates\appveyor.yml"
+
+$templateNuspecPath = Join-Path $toolsPath "templates\nuspecTemplate.xml"
 
 $configuration = (Get-Project).ConfigurationManager;
 $allReleases = $configuration | where {$_.ConfigurationName -eq "Release"}
@@ -64,11 +60,10 @@ $appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_PATH}}",       "Must
 #=======================================
 # 4. Copy over the files
 #=======================================
-Write-Host "Writing content..."
 Set-Content $outputAppVeyorPath $appVeyorContent
-Write-Host "... $outputAppVeyorPath"
+Write-Host "Installed AppVeyor config file at $outputAppVeyorPath"
 
-
+Move-Item -Force $inputNusepcPath $outputNuspecPath
 
 #=======================================
 # 5. Done

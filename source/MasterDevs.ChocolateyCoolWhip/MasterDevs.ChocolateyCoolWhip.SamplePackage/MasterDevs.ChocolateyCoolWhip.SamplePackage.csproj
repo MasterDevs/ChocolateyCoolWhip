@@ -48,7 +48,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Chocolatey\install.bat" />
+    <None Include="Chocolatey\pack.bat" />
+    <None Include="Chocolatey\PrePackage.ps1" />
+    <None Include="Chocolatey\Tokens.json" />
+    <None Include="Chocolatey\ToolsTemplates\chocolateyInstall.ps1" />
+    <None Include="Chocolatey\ToolsTemplates\chocolateyUninstall.ps1" />
+    <None Include="Chocolatey\uninstall.bat" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Chocolatey\package.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
