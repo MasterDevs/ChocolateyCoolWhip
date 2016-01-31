@@ -30,37 +30,26 @@ nuget:
   project_feed: true
 before_build:
 - nuget restore source\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip.sln
-
 build:
   project: source\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip.sln
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
-
-after_build:
-- ps: Invoke-Expression TidyJson\TidyJson\Chocolatey\PrePackage.ps1
-- cpack TidyJson\TidyJson\Chocolatey\package.nuspec --version %BuildVersion%
-
 artifacts:
-- path: Must Figure this bit out
-  name: bin.zip
-- path: \MasterDevs.ChocolateyCoolWhip.SamplePackage\bin\Release\MasterDevs.ChocolateyCoolWhip.SamplePackage.nupkg
-  name: ChocolateyPackage
-
+- path: '**\*.nupkg'
 deploy:
 - provider: GitHub
   auth_token:
-    secure: <replace with your encrypted GitHub token>
+    secure: 6Kc++hw4gNF7gTXwA6MpETVE8+gaMWqaLplEo3i5nLBrpjRKH/QX+yzVf6y1XEjn
   artifact: 
   prerelease: false
   on:
     branch: master
     IsGithubRelease: true
 - provider: NuGet
-  server: https://chocolatey.org/
   api_key:
-    secure: <Replace with your encrypted Nuget.org API token>
-  artifact: ChocolateyPackage
+    secure: q3geF5WGZknlKJ75c8iGmpASiiVIQPKnxZx3AUosPcbwOAPvoIjaeHOB2odWb/YZ
+  artifact: 
   on:
     branch: master
     IsGithubRelease: true
