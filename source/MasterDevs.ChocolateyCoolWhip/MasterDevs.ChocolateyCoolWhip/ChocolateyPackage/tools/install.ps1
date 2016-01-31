@@ -12,21 +12,21 @@ Write-Host "Project:       $project"
 # 1. Startup
 #=======================================
 . "$($toolsPath)\FindGitRoot.ps1" # Import git functions
-#$ErrorActionPreference = "Stop"   # Stop script execution on first error
+$ErrorActionPreference = "Stop"   # Stop script execution on first error
 
 #=======================================
 # 2. Analyze the environment
 #=======================================
 $packagePath = Join-Path $toolsPath ".."
 $projectPath = Split-Path -Parent $project.FullName
-$outputContentPath = Join-Path $projectPath "Chocolatey"
+$chocoPath = Join-Path $projectPath "Chocolatey"
 $solutionFolder = Split-Path $dte.Solution.FullName
 $gitRoot = findGitRoot -pathInGit $solutionFolder
 
 $outputAppVeyorPath = Join-Path $gitRoot "appveyor.yml"
 
-$inputNusepcPath =  Join-Path $projectPath "Chocolatey\package.xml"
-$outputNuspecPath = Join-Path $projectPath "Chocolatey\package.nuspec"
+$inputNusepcPath =  Join-Path $chocoPath "package.xml"
+$outputNuspecPath = Join-Path $chocoPath "package.nuspec"
 
 $templateAppVeyorPath = Join-Path $toolsPath "templates\appveyor.yml"
 
@@ -63,6 +63,23 @@ foreach ($name in $tokens.Keys)
 {
     $value = $tokens.Item($name)
     $appVeyorContent = $appVeyorContent.Replace($name, $value)
+}
+
+$contentFiles = Get-ChildItem -Recurse -File $chocoPath
+foreach ($contentFile in $contentFiles)
+{
+    Write-Host "    Processing $($contentFile.FullName)"
+
+    $content = Get-Content $contentFile.FullName;
+
+    $content = $content -replace $versionToken, $version
+    ForEach($name in $tokens.Keys)
+    {
+        $value = $tokens.Item($name)
+        $content = $content -replace $name, $value;
+    }
+
+    Set-Content $contentFile.FullName -Encoding UTF8 $content
 }
 
 #=======================================
