@@ -8,19 +8,34 @@ Write-Host "Tools Path:    $toolsPath"
 Write-Host "Package:       $package"
 Write-Host "Project:       $project"
 
-#-- Import tools for dealing with git
-. "$($toolsPath)\FindGitRoot.ps1"
+#=======================================
+# 1. Startup
+#=======================================
+. "$($toolsPath)\FindGitRoot.ps1" # Import git functions
+$ErrorActionPreference = "Stop"   # Stop script execution on first error
 
-#-- Analyze the environment
+#=======================================
+# 2. Analyze the environment
+#=======================================
 $packagePath = Join-Path $toolsPath ".."
 $projectPath = Split-Path -Parent $project.FullName
-$nuspecTemplatePath = Join-Path $toolsPath "templates\nuspecTemplate.xml"
-$nuspectOutputPath = Join-Path $projectPath "$($project.Name).nuspec"
+$outputContentPath = Join-Path $projectPath "Chocolatey"
 $solutionFolder = Split-Path $dte.Solution.FullName
 $gitRoot = findGitRoot -pathInGit $solutionFolder
-$appVeyorOutputPath = Join-Path $gitRoot "appveyor.yml"
-$appVeyorTemplatePath = Join-Path $toolsPath "templates\appveyor.yml"
-$appVeyorContent = Get-Content $appVeyorTemplatePath
+
+$outputAppVeyorPath              = Join-Path $gitRoot "appveyor.yml"
+$outputNuspecPath                = Join-Path $projectPath "$($project.Name).nuspec"
+$outputChocolateyInstallPath     = Join-Path $outputContentPath "tools\ChocolateyInstall.ps1"
+$outputChocolateyUninstallPath   = Join-Path $outputContentPath "tools\ChocolateyUninstall.ps1"
+$outputTokensPath                = Join-Path $outputContentPath "tools\Tokens.json"
+$outputPrePackagePath            = Join-Path $outputContentPath "PrePackage.ps1"
+
+$templateAppVeyorPath            = Join-Path $toolsPath "templates\appveyor.yml"
+$templateNuspecPath              = Join-Path $toolsPath "templates\nuspecTemplate.xml"
+$templateChocolateyInstallPath   = Join-Path $toolsPath "templates\ChocolateyInstall.ps1"
+$templateChocolateyUninstallPath = Join-Path $toolsPath "templates\ChocolateyUninstall.ps1"
+$templateTokensPath              = Join-Path $toolsPath "templates\Tokens.json"
+$templatePrePackagePath          = Join-Path $toolsPath "templates\PrePackage.ps1"
 
 $configuration = (Get-Project).ConfigurationManager;
 $allReleases = $configuration | where {$_.ConfigurationName -eq "Release"}
@@ -32,14 +47,12 @@ $artifactPath = Join-Path $relativeProjectOutputPath ($project.Name + ".nupkg")
 
 $relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1)
 
-#-- Ensure we can write everything we need
-#if([string]::IsNullOrEmpty($gitRoot)) {
-# throw "This project is not using git and therefore this project can not be whipped"
-#}
-
-#-- Replace templated items in AppVeyor.yml template
-
+#=======================================
+# 3. Replace Tokens
+#=======================================
 Write-Host "Replacing tokens"
+Write-Host "    Processing AppVeyor.yml"
+$appVeyorContent = Get-Content $templateAppVeyorPath
 $appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}",            $relativeSolutionPath)
 $appVeyorContent = $appVeyorContent.Replace("{{GITHUB_PROJECT_NAME}}",     "Need to figure this out")
 $appVeyorContent = $appVeyorContent.Replace("{{GITHUB_USERNAME}}",         "Need to figure this out")
@@ -48,10 +61,16 @@ $appVeyorContent = $appVeyorContent.Replace("{{SOLUTION_FILE}}",           $rela
 $appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_NAME}}",       "bin.zip")
 $appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_PATH}}",       "Must Figure this bit out")
 
-#-- Write the appveyor.yml 
-Set-Content $appVeyorOutputPath $appVeyorContent
-Write-Host "Created " $appVeyorOutputPath
+#=======================================
+# 4. Copy over the files
+#=======================================
+Write-Host "Writing content..."
+Set-Content $outputAppVeyorPath $appVeyorContent
+Write-Host "... $outputAppVeyorPath"
 
-#-- Write the NuSpec file for the project
-Copy-Item $nuspecTemplatePath $nuspectOutputPath
-Write-Host "Created " $nuspectOutputPath
+
+
+#=======================================
+# 5. Done
+#=======================================
+Write-Host "Done."
