@@ -28,7 +28,6 @@ $outputAppVeyorPath = Join-Path $gitRoot "appveyor.yml"
 $inputNusepcPath =  Join-Path $projectPath "Chocolatey\package.xml"
 $outputNuspecPath = Join-Path $projectPath "Chocolatey\package.nuspec"
 
-echo "HEllo world safasfsa fsa;fsaf"
 $templateAppVeyorPath = Join-Path $toolsPath "templates\appveyor.yml"
 
 $templateNuspecPath = Join-Path $toolsPath "templates\nuspecTemplate.xml"

@@ -50,6 +50,7 @@
     <None Include="ChocolateyPackage\content\Chocolatey\pack.bat" />
     <None Include="ChocolateyPackage\content\Chocolatey\uninstall.bat" />
     <None Include="ChocolateyPackage\tools\FindGitRoot.ps1" />
+    <None Include="ChocolateyPackage\tools\uninstall.ps1" />
     <None Include="ChocolateyPackage\tools\install.ps1" />
     <None Include="ChocolateyPackage\tools\templates\appveyor.yml" />
     <None Include="ChocolateyPackage\content\Chocolatey\ToolsTemplates\chocolateyInstall.ps1" />
