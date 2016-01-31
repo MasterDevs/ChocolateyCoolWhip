@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
@@ -51,7 +51,7 @@
     <None Include="ChocolateyPackage\tools\templates\appveyor.yml" />
     <None Include="ChocolateyPackage\tools\templates\chocolateyInstall.ps1" />
     <None Include="ChocolateyPackage\tools\templates\chocolateyUninstall.ps1" />
-    <None Include="ChocolateyPackage\tools\templates\nuspecTemplate.nuspec" />
+    <None Include="ChocolateyPackage\tools\templates\nuspecTemplate.xml" />
     <None Include="ChocolateyPackage\tools\templates\Tokens.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
