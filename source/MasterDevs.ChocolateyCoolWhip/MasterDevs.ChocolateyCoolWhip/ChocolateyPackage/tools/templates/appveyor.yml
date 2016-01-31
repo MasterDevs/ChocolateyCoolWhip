@@ -29,10 +29,10 @@ nuget:
   account_feed: true
   project_feed: true
 before_build:
-- nuget restore {{solutionFile}}
+- nuget restore {{SOLUTION_FILE}}
 
 build:
-  project: {{solutionFile}}
+  project: {{SOLUTION_FILE}}
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
@@ -42,9 +42,9 @@ after_build:
 - cpack TidyJson\TidyJson\Chocolatey\package.nuspec --version %BuildVersion%
 
 artifacts:
-- path: {{zipArtifactPath}}
-  name: {{zipArtifactName}}
-- path: {{chocolateyPackagePath}}
+- path: {{ZIP_ARTIFACT_PATH}}
+  name: {{ZIP_ARTIFACT_NAME}}
+- path: {{CHOCOLATEY_PACKAGE_PATH}}
   name: ChocolateyPackage
 
 deploy:

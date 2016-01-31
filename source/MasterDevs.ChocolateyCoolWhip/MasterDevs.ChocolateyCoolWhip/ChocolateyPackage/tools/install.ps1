@@ -34,14 +34,19 @@ $relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1
 
 #-- Ensure we can write everything we need
 #if([string]::IsNullOrEmpty($gitRoot)) {
-#	throw "This project is not using git and therefore this project can not be whipped"
+# throw "This project is not using git and therefore this project can not be whipped"
 #}
 
 #-- Replace templated items in AppVeyor.yml template
-$appVeyorContent = $appVeyorContent.Replace("{{artifactPath}}", $artifactPath)
-$appVeyorContent = $appVeyorContent.Replace("{{artifactName}}", $project.Name)
-$appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}", $relativeSolutionPath)
 
+Write-Host "Replacing tokens"
+$appVeyorContent = $appVeyorContent.Replace("{{solutionFile}}",            $relativeSolutionPath)
+$appVeyorContent = $appVeyorContent.Replace("{{GITHUB_PROJECT_NAME}}",     "Need to figure this out")
+$appVeyorContent = $appVeyorContent.Replace("{{GITHUB_USERNAME}}",         "Need to figure this out")
+$appVeyorContent = $appVeyorContent.Replace("{{CHOCOLATEY_PACKAGE_PATH}}", $artifactPath)
+$appVeyorContent = $appVeyorContent.Replace("{{SOLUTION_FILE}}",           $relativeSolutionPath)
+$appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_NAME}}",       "bin.zip")
+$appVeyorContent = $appVeyorContent.Replace("{{ZIP_ARTIFACT_PATH}}",       "Must Figure this bit out")
 
 #-- Write the appveyor.yml 
 Set-Content $appVeyorOutputPath $appVeyorContent
