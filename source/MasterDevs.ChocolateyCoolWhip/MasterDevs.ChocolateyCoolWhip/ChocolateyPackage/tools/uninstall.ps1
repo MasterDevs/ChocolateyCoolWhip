@@ -1,4 +1,5 @@
 ﻿param($installPath, $toolsPath, $package, $project)
+
 Write-Host "Install Path:  $installPath"
 Write-Host "Tools Path:    $toolsPath"
 Write-Host "Package:       $package"
@@ -14,17 +15,21 @@ $ErrorActionPreference = "Stop"   # Stop script execution on first error
 # 2. Analyze the environment
 #=======================================
 $projectPath = Split-Path -Parent $project.FullName
-
-$inputNusepcPath =  Join-Path $projectPath "Chocolatey\package.xml"
-$outputNuspecPath = Join-Path $projectPath "Chocolatey\package.nuspec"
-
-#=======================================
-# Rename files so they match what they came in as
-#=======================================
-
-Move-Item -Force  $outputNuspecPath $inputNusepcPath
+$chocoPath = Join-Path $projectPath "Chocolatey"
+$nuspecPath = Join-Path $chocoPath "package.nuspec"
 
 #=======================================
-# 5. Done
+# 3. Clean up
+#=======================================
+# Delete the nuspec file and the 
+# chocolatey folder if it's empty
+#=======================================
+Remove-Item -Force  $nuspecPath 
+echo "Deleted $nuspecPath"
+
+# It would be nice to remove the item from the project as well.
+
+#=======================================
+# 4. Done
 #=======================================
 Write-Host "Done."

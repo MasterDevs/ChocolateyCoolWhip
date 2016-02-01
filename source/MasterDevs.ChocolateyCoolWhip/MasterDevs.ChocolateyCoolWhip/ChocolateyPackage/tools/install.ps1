@@ -12,7 +12,7 @@ Write-Host "Project:       $project"
 # 1. Startup
 #=======================================
 . "$($toolsPath)\FindGitRoot.ps1" # Import git functions
-$ErrorActionPreference = "Stop"   # Stop script execution on first error
+# $ErrorActionPreference = "Stop"   # Stop script execution on first error
 
 #=======================================
 # 2. Analyze the environment
@@ -28,7 +28,7 @@ $gitProjectName = getProjectNameFromUrl $gitUrl
 
 $outputAppVeyorPath = Join-Path $gitRoot "appveyor.yml"
 
-$inputNusepcPath =  Join-Path $chocoPath "package.xml"
+$inputNusepcPath =  Join-Path $toolsPath "templates\package.xml"
 $outputNuspecPath = Join-Path $chocoPath "package.nuspec"
 
 $templateAppVeyorPath = Join-Path $toolsPath "templates\appveyor.yml"
@@ -46,7 +46,19 @@ $artifactPath = Join-Path $relativeProjectOutputPath ($project.Name + ".nupkg")
 $relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1)
 
 #=======================================
-# 3. Replace Tokens
+# 3. Deploy the nuspec file
+#=======================================
+# Nuget ignores files with a nuspec 
+# extension when they are placed in 
+# the content directory.  
+# So I have to manually copy it there 
+# and add it to the project
+#=======================================
+
+Copy-Item -Force $inputNusepcPath $outputNuspecPath
+$project.ProjectItems.AddFromFile($outputNuspecPath)
+#=======================================
+# 4. Replace Tokens
 #=======================================
 Write-Host "Replacing tokens"
 Write-Host "    Processing AppVeyor.yml"
@@ -86,14 +98,13 @@ foreach ($contentFile in $contentFiles)
 }
 
 #=======================================
-# 4. Copy over the files
+# 5. Copy over the files
 #=======================================
 Set-Content $outputAppVeyorPath $appVeyorContent
 Write-Host "Installed AppVeyor config file at $outputAppVeyorPath"
 
-#Move-Item -Force $inputNusepcPath $outputNuspecPath
 
 #=======================================
-# 5. Done
+# 6. Done
 #=======================================
 Write-Host "Done."

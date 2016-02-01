@@ -13,11 +13,5 @@
     <copyright>Copyright 2015</copyright>
     <tags>Chocolatey AppVeyor</tags>
     <developmentDependency>true</developmentDependency>
-
   </metadata>
-
-  <!--<files>
-    <file src="content\Chocolatey\package.xml"   />
-  </files>-->
-
 </package>

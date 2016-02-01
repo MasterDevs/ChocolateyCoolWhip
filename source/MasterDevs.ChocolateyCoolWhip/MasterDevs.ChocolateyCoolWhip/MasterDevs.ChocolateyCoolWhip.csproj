@@ -55,7 +55,7 @@
     <None Include="ChocolateyPackage\tools\templates\appveyor.yml" />
     <None Include="ChocolateyPackage\content\Chocolatey\ToolsTemplates\chocolateyInstall.ps1" />
     <None Include="ChocolateyPackage\content\Chocolatey\ToolsTemplates\chocolateyUninstall.ps1" />
-    <None Include="ChocolateyPackage\content\Chocolatey\package.xml" />
+    <None Include="ChocolateyPackage\tools\templates\package.xml" />
     <None Include="ChocolateyPackage\content\Chocolatey\PrePackage.ps1" />
     <None Include="ChocolateyPackage\content\Chocolatey\Tokens.json" />
   </ItemGroup>
