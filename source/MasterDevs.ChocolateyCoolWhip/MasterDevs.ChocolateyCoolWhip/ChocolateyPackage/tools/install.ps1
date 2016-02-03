@@ -17,7 +17,6 @@ Write-Host "Project:       $project"
 #=======================================
 # 2. Analyze the environment
 #=======================================
-$packagePath = Join-Path $toolsPath ".."
 $projectPath = Split-Path -Parent $project.FullName
 $chocoPath = Join-Path $projectPath "Chocolatey"
 $solutionFolder = Split-Path $dte.Solution.FullName
@@ -38,12 +37,14 @@ $templateNuspecPath = Join-Path $toolsPath "templates\nuspecTemplate.xml"
 $configuration = (Get-Project).ConfigurationManager;
 $allReleases = $configuration | where {$_.ConfigurationName -eq "Release"}
 $props = $allReleases | Get-Member
-$releaseConfiguration = $allReleases
-$fullProjectOutputPath = Join-Path $projectPath $releaseConfiguration.Properties.Item("OutputPath").Value
-$relativeProjectOutputPath = $fullProjectOutputPath.Replace($solutionFolder, "")
-$artifactPath = Join-Path $relativeProjectOutputPath ($project.Name + ".nupkg")
 
-$relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").SubString(1)
+$relativeProjectPath = $projectPath.Replace($gitRoot, "").TrimStart("\")
+$releaseConfiguration = $allReleases
+$relativeProjectOutputPath = Join-Path $relativeProjectPath $releaseConfiguration.Properties.Item("OutputPath").Value
+$artifactPath = Join-Path $relativeProjectOutputPath ($project.Name + ".nupkg")
+$zipArtifactPath = $relativeProjectPath
+
+$relativeSolutionPath = $dte.Solution.FullName.Replace($gitRoot, "").TrimStart("\")
 
 #=======================================
 # 3. Deploy the nuspec file
@@ -64,13 +65,12 @@ Write-Host "Replacing tokens"
 Write-Host "    Processing AppVeyor.yml"
 
 $tokens = @{
-    "{{solutionFile}}"             = $relativeSolutionPath;
+    "{{CHOCOLATEY_PACKAGE_PATH}}"  = $artifactPath;
     "{{GITHUB_PROJECT_NAME}}"      = $gitProjectName;
     "{{GITHUB_USERNAME}}"          = $gitUsername;
-    "{{CHOCOLATEY_PACKAGE_PATH}}"  = $artifactPath;
+    "{{PROJECT_PATH}}"             = $relativeProjectPath;
     "{{SOLUTION_FILE}}"            = $relativeSolutionPath;
-    "{{ZIP_ARTIFACT_NAME}}"        = "bin.zip";
-    "{{ZIP_ARTIFACT_PATH}}"        = "Must Figure this bit out";
+    "{{ZIP_ARTIFACT_PATH}}"        = $zipArtifactPath;
 }
 
 $appVeyorContent = Get-Content $templateAppVeyorPath

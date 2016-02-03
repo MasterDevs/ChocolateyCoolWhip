@@ -38,12 +38,12 @@ build:
   verbosity: minimal
 
 after_build:
-- ps: Invoke-Expression TidyJson\TidyJson\Chocolatey\PrePackage.ps1
-- cpack TidyJson\TidyJson\Chocolatey\package.nuspec --version %BuildVersion%
+- ps: Invoke-Expression {{PROJECT_PATH}}\Chocolatey\PrePackage.ps1
+- cpack {{PROJECT_PATH}}\Chocolatey\package.nuspec --version %BuildVersion%
 
 artifacts:
 - path: {{ZIP_ARTIFACT_PATH}}
-  name: {{ZIP_ARTIFACT_NAME}}
+  name: bin.zip
 - path: {{CHOCOLATEY_PACKAGE_PATH}}
   name: ChocolateyPackage
 
