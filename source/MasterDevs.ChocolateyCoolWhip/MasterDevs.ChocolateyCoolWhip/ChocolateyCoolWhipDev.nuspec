@@ -2,7 +2,7 @@
 <package>
   <metadata minClientVersion="2.8">
     <id>ChocolateyCoolWhip</id>
-    <version>1.0.0</version>
+    <version>$version$</version>
     <title>ChocolateyCoolWhip</title>
     <authors>MasterDevs</authors>
     <owners>MasterDevs</owners>
