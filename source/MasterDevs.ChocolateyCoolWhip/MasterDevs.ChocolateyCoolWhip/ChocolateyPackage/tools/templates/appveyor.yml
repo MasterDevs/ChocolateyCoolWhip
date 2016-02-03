@@ -37,7 +37,7 @@ build:
   publish_nuget_symbols: true
   verbosity: minimal
 
-after_build:
+before_package:
 - ps: Invoke-Expression {{PROJECT_PATH}}\Chocolatey\PrePackage.ps1
 - cpack {{PROJECT_PATH}}\Chocolatey\package.nuspec --version %BuildVersion%
 
