@@ -24,10 +24,21 @@ $nuspecPath = Join-Path $chocoPath "package.nuspec"
 # Delete the nuspec file and the 
 # chocolatey folder if it's empty
 #=======================================
+
+# Remove nuspec from the csproj
+
+foreach ($top in $project.ProjectItems | where-object { $_.Name -EQ "Chocolatey" }) 
+{
+    foreach ($child in $top.ProjectItems | Where-Object { $_.Name -EQ "package.nuspec" } ) 
+    {
+        $child.Remove()
+    }
+}
+
+# Delete the nuspec file
 Remove-Item -Force  $nuspecPath 
 echo "Deleted $nuspecPath"
 
-# It would be nice to remove the item from the project as well.
 
 #=======================================
 # 4. Done
