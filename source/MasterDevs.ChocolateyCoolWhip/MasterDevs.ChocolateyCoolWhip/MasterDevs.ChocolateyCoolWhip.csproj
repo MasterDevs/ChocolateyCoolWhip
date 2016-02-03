@@ -61,18 +61,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>SET packageFolder="c:\code\nugetpackages"
-if not exist %25packageFolder%25 mkdir %25packageFolder%25
-
-SET NUGETEXE="$(SolutionDir).nuget\NuGet.exe" 
-SET NUSPEC="$(ProjectDir)ChocolateyPackage\ChocolateyCoolWhipDev.nuspec"
-SET DATE=$([System.DateTime]::Now.ToString(`yyMM`))$([System.DateTime]::Now.ToString(`ddHH`))
-SET TIME=$([System.DateTime]::Now.ToString(`mmss`))
-SET VERSION=0.%25DATE%25.%25TIME%25
-IF NOT "%25BuildVersion%25" == "" (set VERSION=%25BuildVersion%25) 
-
-%25NUGETEXE%25 pack %25NUSPEC%25 -version %25VERSION%25 -OutputDirectory %25packageFolder%25
-</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
