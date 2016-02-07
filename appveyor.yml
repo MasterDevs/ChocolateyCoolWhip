@@ -36,9 +36,6 @@ build:
   publish_nuget_symbols: true
   verbosity: minimal
 
-before_package:
-- del source\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip\bin\release\MasterDevs.ChocolateyCoolWhip.*
-
 artifacts:
 - path: '**\*.nupkg'
 deploy:

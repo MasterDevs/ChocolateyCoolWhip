@@ -16,7 +16,7 @@
   </metadata>
 
   <files>
-    <file src="bin\**\*.*" exclude="*.dll;*.exe;MasterDevs.ChocolateyCoolWhip.*" />
+    <file src="**" exclude="*.dll;*.exe;MasterDevs.ChocolateyCoolWhip.*" />
   </files>
 
 </package>
