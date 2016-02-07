@@ -37,7 +37,7 @@ build:
   verbosity: minimal
 
 before_package:
-- nuget.exe pack source\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip.nuspec -version %appveyor_build_version%
+- del source\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip\bin\release\MasterDevs.ChocolateyCoolWhip.*
 
 artifacts:
 - path: '**\*.nupkg'
