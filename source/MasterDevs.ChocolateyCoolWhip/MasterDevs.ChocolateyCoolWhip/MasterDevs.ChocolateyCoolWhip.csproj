@@ -43,7 +43,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChocolateyCoolWhipDev.nuspec" />
+    <Content Include="package.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ChocolateyPackage\content\Chocolatey\install.bat" />
