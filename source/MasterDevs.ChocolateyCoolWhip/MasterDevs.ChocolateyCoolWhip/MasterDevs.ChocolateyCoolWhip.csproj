@@ -46,18 +46,18 @@
     <Content Include="MasterDevs.ChocolateyCoolWhip.nuspec" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChocolateyPackage\content\Chocolatey\install.bat" />
-    <Content Include="ChocolateyPackage\content\Chocolatey\pack.bat" />
-    <Content Include="ChocolateyPackage\content\Chocolatey\uninstall.bat" />
-    <Content Include="ChocolateyPackage\tools\FindGitRoot.ps1" />
-    <Content Include="ChocolateyPackage\tools\uninstall.ps1" />
-    <Content Include="ChocolateyPackage\tools\install.ps1" />
-    <Content Include="ChocolateyPackage\tools\templates\appveyor.yml" />
-    <Content Include="ChocolateyPackage\content\Chocolatey\ToolsTemplates\chocolateyInstall.ps1" />
-    <Content Include="ChocolateyPackage\content\Chocolatey\ToolsTemplates\chocolateyUninstall.ps1" />
-    <Content Include="ChocolateyPackage\tools\templates\package.xml" />
-    <Content Include="ChocolateyPackage\content\Chocolatey\PrePackage.ps1" />
-    <Content Include="ChocolateyPackage\content\Chocolatey\Tokens.json" />
+    <None Include="ChocolateyPackage\content\Chocolatey\install.bat" />
+    <None Include="ChocolateyPackage\content\Chocolatey\pack.bat" />
+    <None Include="ChocolateyPackage\content\Chocolatey\uninstall.bat" />
+    <None Include="ChocolateyPackage\tools\FindGitRoot.ps1" />
+    <None Include="ChocolateyPackage\tools\uninstall.ps1" />
+    <None Include="ChocolateyPackage\tools\install.ps1" />
+    <None Include="ChocolateyPackage\tools\templates\appveyor.yml" />
+    <None Include="ChocolateyPackage\content\Chocolatey\ToolsTemplates\chocolateyInstall.ps1" />
+    <None Include="ChocolateyPackage\content\Chocolatey\ToolsTemplates\chocolateyUninstall.ps1" />
+    <None Include="ChocolateyPackage\tools\templates\package.xml" />
+    <None Include="ChocolateyPackage\content\Chocolatey\PrePackage.ps1" />
+    <None Include="ChocolateyPackage\content\Chocolatey\Tokens.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <PropertyGroup>

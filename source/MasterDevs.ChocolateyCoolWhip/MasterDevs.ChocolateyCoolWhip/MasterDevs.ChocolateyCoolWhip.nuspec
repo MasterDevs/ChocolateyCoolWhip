@@ -15,8 +15,23 @@
     <developmentDependency>true</developmentDependency>
   </metadata>
 
-  <!--<files>
-    <file src="**\bin\Release" exclude="*" />
-  </files>-->
+  <files>
+    <file src="**\ChocolateyPackage\content\**" target="content" />
+    <file src="**\ChocolateyPackage\tools\**" target="tool" />
+
+  </files>
+
+  <!--<contentFiles>
+    <files include="any/any/images/dnf.png" buildAction="EmbeddedResource" />
+    <files include="any/any/images/ui.png" buildAction="EmbeddedResource" />
+    
+    <files include="cs/**/*.png" buildAction="EmbeddedResource" />
+
+    <files include="cs/uap10.0/config/config.xml" buildAction="None" copyToOutput="true" flatten="true" />
+
+    <files include="cs/uap10.0/scripts/*" exclude="**/*.exe"  buildAction="None" copyToOutput="true" />
+
+  </contentFiles>-->
+
 
 </package>
