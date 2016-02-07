@@ -15,8 +15,8 @@
     <developmentDependency>true</developmentDependency>
   </metadata>
 
-  <files>
+  <!--<files>
     <file src="**\bin\Release" exclude="*" />
-  </files>
+  </files>-->
 
 </package>
