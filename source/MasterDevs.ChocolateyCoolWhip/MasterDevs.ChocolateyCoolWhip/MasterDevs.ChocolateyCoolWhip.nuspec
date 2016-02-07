@@ -15,8 +15,8 @@
     <developmentDependency>true</developmentDependency>
   </metadata>
 
-  <files>
+  <!--<files>
     <file src="**" exclude="*.dll;*.exe;MasterDevs.ChocolateyCoolWhip.*" />
-  </files>
+  </files>-->
 
 </package>
