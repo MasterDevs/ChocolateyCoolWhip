@@ -35,9 +35,12 @@ build:
   publish_nuget: true
   publish_nuget_symbols: true
   verbosity: minimal
+
+before_package:
+- nuget.exe pack source\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip\MasterDevs.ChocolateyCoolWhip.nuspec -version %appveyor_build_version%
+
 artifacts:
 - path: '**\*.nupkg'
-  name: nugetPackage
 deploy:
 - provider: GitHub
   auth_token:
