@@ -14,4 +14,9 @@
     <tags>Chocolatey AppVeyor</tags>
     <developmentDependency>true</developmentDependency>
   </metadata>
+
+  <files>
+    <file src="bin\**\*.*" exclude="*.dll;*.exe" />
+  </files>
+
 </package>
