@@ -17,7 +17,7 @@
 
   <files>
     <file src="ChocolateyPackage\content\**" target="content" />
-    <file src="ChocolateyPackage\tools\**" target="tool" />
+    <file src="ChocolateyPackage\tools\**" target="tools" />
 
   </files>
 
