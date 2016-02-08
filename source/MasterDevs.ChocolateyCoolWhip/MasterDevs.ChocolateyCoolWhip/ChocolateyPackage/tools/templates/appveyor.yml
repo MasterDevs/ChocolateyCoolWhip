@@ -42,9 +42,9 @@ before_package:
 - cpack {{PROJECT_PATH}}\Chocolatey\package.nuspec --version %BuildVersion%
 
 artifacts:
-- path: {{ZIP_ARTIFACT_PATH}}
-  name: bin.zip
-- path: {{CHOCOLATEY_PACKAGE_PATH}}
+- path: {{ZIP_ARTIFACT_PATH}}\bin\$(configuration)
+  name: bin
+- path: '*.nupkg'
   name: ChocolateyPackage
 
 deploy:
