@@ -37,7 +37,8 @@ $silent = New-Item -ItemType Directory -Force -Path $toolsDir
 Write-Host
 Write-Host "Reading tokens"
 
-$tokenFile = $templateDirectory.EnumerateFiles().Where({$PSItem.Name -eq "tokens.json";})[0]
+$tokenFile = $templateDirectory.Parent.EnumerateFiles().Where({$PSItem.Name -eq "Tokens.json";})[0]
+Write-Host "Found file $tokenFile"
 $json = Get-Content -Raw $tokenFile.FullName
 $tokens = ConvertFrom-Json $json
 Write-Host "Replacing tokens"
